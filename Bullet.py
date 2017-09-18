@@ -34,19 +34,23 @@ class Bullet(Sprite):
 		else: #left
 			self.x -= self.speed #change the y, each time update is run, by bullet speed
 			self.rect.x = self.x #update rect position
+
 	def draw_bullet(self):
 		if self.y > 600: 
 			self.explosion()
+			if self.explosion_index == len(self.explosions) - 1:
+				self.kill()
 		else:
 			pygame.draw.rect(self.screen, self.color, self.rect) #draw the bullet!
 
 	def explosion(self):
 		self.tick += 1
-		if self.tick % 10 == 0:
+		if self.tick % 1 == 0:
 			if self.explosion_index == len(self.explosions) - 1:
 				self.explosion_index = 0
 			else:
 				self.explosion_index += 1
 				self.tick = 0
 		self.screen.blit(pygame.image.load(self.explosions[self.explosion_index]), [self.x, 600])
+
 

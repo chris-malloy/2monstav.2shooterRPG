@@ -126,6 +126,7 @@ def game_loop():
 		for bullet in bullets:
 			bullet.update()
 			bullet.draw_bullet();
+			
 		pygame.display.flip();
 game_loop();
 
