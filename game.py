@@ -45,13 +45,13 @@ enemy_group.add(bad_guy);
 
 def message1_display(text): #display what kind of text you want
 	largeText = pygame.font.Font(None ,90)
-	start_text = largeText.render(text, True, (205, 224, 255));
+	start_text = largeText.render(text, True, (235,255,255));
 	screen.blit(start_text, [100, 100]);
 	pygame.display.update()
 
 def message2_display(text):
 	largeText = pygame.font.Font(None ,70)
-	story = largeText.render(text, True, (205, 224, 255));
+	story = largeText.render(text, True, (235,255,255));
 	# start_text = largeText.render(text, True, (205, 224, 255));
 	screen.blit(story, [230,300]);
 	# screen.blit(start_text, [screenx/2 -125, screeny/2]);
@@ -59,7 +59,7 @@ def message2_display(text):
 
 def message3_display(text):
 	largeText = pygame.font.Font(None,70)
-	prompt = largeText.render(prompt, True, (205, 224, 255))
+	prompt = largeText.render(prompt, True, (235,255,255))
 	screen.blit(prompt, [screenx/2 - 150, screeny/2])
 	pygame.display.update()
 
@@ -85,42 +85,46 @@ def game_loop():
 		for event in pygame.event.get(): #loop through all the pygame events, gave it a escape patch
 			if event.type == pygame.QUIT:
 				game_on = False;
+
+			#=====KEYDOWN SCENARIOS===========
 			elif(event.type ==pygame.KEYDOWN): 
-				# if(event.key == 273):
-				# 	the_player.should_move("up", True);
-				# elif(event.key == 274):
-				# 	the_player.should_move("down", True);
+				#==MOVE RIGHT===
 				if(event.key == pygame.K_d):
 					the_player.should_move("right", True);
+				#===MOVE LEFT AND TURN BODY===
 				elif(event.key == pygame.K_a):
 					the_player.should_move("left", True);
 					the_player.transform_image();
-				elif(event.key == 32):
+				#===MOVE LEFT WHILE ATTACKING AND TURN BODY===
+				elif((event.key == pygame.K_a) and (event.key == 32)):
+					the_player.should_move("left", True)
+					the_player.transform_image()
+				#===ATTACK===
+				if(event.key == 32):
 					the_player.swinging = True;
-				elif(event.key == pygame.K_RSHIFT):
-					the_player.jump(True);
-			elif(event.type ==pygame.KEYUP): 
-				#if(event.key == 273):	
-				# 	the_player.should_move("up", False);
-				# elif(event.key == 274):
-				# 	the_player.should_move("down", False);  
+				#===JUMP===
+				if(event.key == pygame.K_RSHIFT):
+					the_player.jump(True); 
+			elif(event.type ==pygame.KEYUP):   
 				if(event.key == pygame.K_d):	
 					the_player.should_move("right", False);
 				elif(event.key == pygame.K_a):
 					the_player.should_move("left", False);
 					the_player.transform_image();
-				elif(event.key == 32):
+				if(event.key == 32):
 					the_player.swinging = False ;
-				elif(event.key == pygame.K_RSHIFT):
-					the_player.jump(False);
+				if(event.key == pygame.K_RSHIFT):
+					the_player.jump(False)
 
 		screen.blit(background_image_one_resized, [0,0])
 		if(starting_text == True): #added welcome player logo at the start of the game.
 			message1_display("Welcome Brave Adventurer");
 			message2_display("Are you ready to play?")
 			
-			if(tick % 100 == 0):	
-				starting_text = False;
+			# if(tick % 100 == 0):	
+			if event.type == pygame.KEYDOWN:
+				if event.key == 32:
+					starting_text = False;
 		else:
 			screen.blit(background_image_two_resized, [0,0])
 			for i in enemy_group: #this moves the bad_guy in the enemy group towards the hero

@@ -57,8 +57,13 @@ class Player(Sprite):
 			self.should_move_right = yes_or_no;
 			
 	def transform_image(self):
-		self.image = pygame.transform.flip(self.image, True, False);
-		self.screen.blit(self.image, [self.x, self.y])
+		if self.should_move_right == True:
+			self.image = self.image
+			self.screen.blit(self.image, [self.x, self.y])
+		elif self.should_move_left == True:
+			self.image = pygame.transform.flip(self.image, True, False);
+			self.screen.blit(self.image, [self.x, self.y])
+
 
 	def update(self):
 		if(self.swinging or self.index > 0):
