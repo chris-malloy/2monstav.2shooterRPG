@@ -8,23 +8,30 @@ from Latios import Latios
 import random
 
 pygame.init();
+
+pygame.mixer.init()
+pygame.mixer.music.load("sounds/music.wav")
+pygame.mixer.music.play()
+
 screenx = 1000;
 screeny = 800;
 screen_size =(screenx, screeny);
 black = (170, 238, 187)
+
 background_image = pygame.image.load("./images/space.jpg")
 background_image_two = pygame.image.load("./images/background3.png");
 background_image_two_resized = pygame.transform.scale(background_image_two, [1000,800])
+
 screen = pygame.display.set_mode(screen_size);
 pygame.display.set_caption("Hi");
+
 the_player = Player("./images/ff1.tiff", 100, 500, screen) # dont need the image, the x or the y
 bad_guy = Bad_Guy(screen, 700, 575);
 latios = Latios(screen);
-
-
 bullets = Group(); #make a new group called bullets, it's a pygame "list";
 hero_group = Group();
 enemy_group = Group();
+
 hero_group.add(the_player);
 enemy_group.add(bad_guy);
 
@@ -126,7 +133,7 @@ def game_loop():
 		for bullet in bullets:
 			bullet.update()
 			bullet.draw_bullet();
-			
+
 		pygame.display.flip();
 game_loop();
 

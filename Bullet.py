@@ -20,7 +20,9 @@ class Bullet(Sprite):
 		'images/explosion5.png','images/explosion6.png','images/explosion7.png','images/explosion8.png','images/explosion9.png',
 		'images/explosion10.png','images/explosion11.png','images/explosion12.png','images/explosion12.png','images/explosion13.png',
 		'images/explsion14.png']
+		self.explosion_sound = pygame.mixer.Sound("sounds/8-BIt-SFX_Explosion_01.wav")
 		self.tick = 0
+		
 	def update(self):
 		if self.direction == 1: #up
 			self.y -= self.speed #change the y, each time update is run, by bullet speed
@@ -38,6 +40,7 @@ class Bullet(Sprite):
 	def draw_bullet(self):
 		if self.y > 600: 
 			self.explosion()
+
 			if self.explosion_index == len(self.explosions) - 1:
 				self.kill()
 		else:
@@ -48,9 +51,16 @@ class Bullet(Sprite):
 		if self.tick % 1 == 0:
 			if self.explosion_index == len(self.explosions) - 1:
 				self.explosion_index = 0
+				self.explosion_sound.play()
+
 			else:
 				self.explosion_index += 1
 				self.tick = 0
 		self.screen.blit(pygame.image.load(self.explosions[self.explosion_index]), [self.x, 600])
+
+	# def explosion_sound(self):
+	# 	self.explosion_sound = pygame.mixer.Sound("sounds/8-BIt-SFX_Explosion_01.wav")
+	# 	self.explosion_sound.play()
+
 
 
