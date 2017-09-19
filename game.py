@@ -17,6 +17,7 @@ pygame.mixer.music.play()
 explosion_sound = pygame.mixer.Sound("sounds/8-BIt-SFX_Explosion_01.wav")
 
 pygame.font.init()
+# screen.draw.text("Outlined text", (400, 70), owidth=1.5, ocolor=(255,255,0), color=(0,0,0))
 
 screenx = 1000;
 screeny = 800;
@@ -29,7 +30,7 @@ background_image_two = pygame.image.load("./images/background3.png");
 background_image_two_resized = pygame.transform.scale(background_image_two, screen_size)
 
 screen = pygame.display.set_mode(screen_size);
-pygame.display.set_caption("Hi");
+pygame.display.set_caption("PYGAME");
 
 the_player = Player("./images/ff1.tiff", 100, 500, screen) # dont need the image, the x or the y
 bad_guy = Bad_Guy(screen, 700, 575);
@@ -45,13 +46,13 @@ enemy_group.add(bad_guy);
 
 def message1_display(text): #display what kind of text you want
 	largeText = pygame.font.Font(None ,90)
-	start_text = largeText.render(text, True, (235,255,255));
+	start_text = largeText.render(text, True, (245,255,255));
 	screen.blit(start_text, [100, 100]);
 	pygame.display.update()
 
 def message2_display(text):
 	largeText = pygame.font.Font(None ,70)
-	story = largeText.render(text, True, (235,255,255));
+	story = largeText.render(text, True, (245,255,255));
 	# start_text = largeText.render(text, True, (205, 224, 255));
 	screen.blit(story, [230,300]);
 	# screen.blit(start_text, [screenx/2 -125, screeny/2]);
@@ -59,8 +60,8 @@ def message2_display(text):
 
 def message3_display(text):
 	largeText = pygame.font.Font(None,70)
-	prompt = largeText.render(prompt, True, (235,255,255))
-	screen.blit(prompt, [screenx/2 - 150, screeny/2])
+	prompt = largeText.render(text, True, (245,255,255))
+	screen.blit(prompt, [180, 500])
 	pygame.display.update()
 
 def check_collision():
@@ -120,6 +121,7 @@ def game_loop():
 		if(starting_text == True): #added welcome player logo at the start of the game.
 			message1_display("Welcome Brave Adventurer");
 			message2_display("Are you ready to play?")
+			message3_display("Press Spacebar to continue.")
 			
 			# if(tick % 100 == 0):	
 			if event.type == pygame.KEYDOWN:
