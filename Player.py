@@ -1,5 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
+
 class Player(Sprite):
 	def __init__(self, image,start_x, start_y, screen):
 		super(Player,self).__init__(); #because it's a subclass, you have to call the parent class Sprite
@@ -9,7 +10,7 @@ class Player(Sprite):
 		self.y = start_y;
 		self.health = 3;
 		self.rect = pygame.Rect(start_x, start_y, 100, 100) #added myself
-		self.speed = 10;
+		self.speed = 20;
 		self.screen = screen;
 		self.should_move_up = False;
 		self.should_move_down = False;
@@ -30,7 +31,8 @@ class Player(Sprite):
 		self.image_original_5 = pygame.image.load("./images/ff5.tiff")
 		self.image_original_5_transform = pygame.transform.scale(self.image_original_5, [170,170])
 		self.image_group.append(self.image_original_5_transform);
-		self.swinging = False
+		self.swinging = False;
+
 
 	def draw_me(self):
 		if(self.should_move_up):
@@ -59,11 +61,13 @@ class Player(Sprite):
 		self.screen.blit(self.image, [self.x, self.y])
 
 	def update(self):
+		if(self.swinging or self.index > 0):
 			self.index +=1;
 			if(self.index >= len(self.image_group)):
 				self.index = 0;
 			self.image = self.image_group[self.index]
 			self.screen.blit(self.image, [self.x, self.y])
+
 	def jump(self, true_or_false):
 		if(true_or_false == True):
 			self.y -=110;

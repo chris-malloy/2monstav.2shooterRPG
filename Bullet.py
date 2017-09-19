@@ -19,7 +19,7 @@ class Bullet(Sprite):
 		self.explosions = ['images/explosion2.png','images/explosion3.png','images/explosion4.png',
 		'images/explosion5.png','images/explosion6.png','images/explosion7.png','images/explosion8.png','images/explosion9.png',
 		'images/explosion10.png','images/explosion11.png','images/explosion12.png','images/explosion12.png','images/explosion13.png',
-		'images/explsion14.png']
+		'images/explosion14.png']
 		self.explosion_sound = pygame.mixer.Sound("sounds/8-BIt-SFX_Explosion_01.wav")
 		self.tick = 0
 		
@@ -48,7 +48,7 @@ class Bullet(Sprite):
 
 	def explosion(self):
 		self.tick += 1
-		if self.tick % 1 == 0:
+		if self.tick > 1:
 			if self.explosion_index == len(self.explosions) - 1:
 				self.explosion_index = 0
 				self.explosion_sound.play()

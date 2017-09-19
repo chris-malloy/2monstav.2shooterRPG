@@ -2,16 +2,17 @@ import pygame
 from math import hypot
 from pygame.sprite import Sprite
 
-class Latios(Sprite):
+class Dragon(Sprite):
     def __init__(self, screen):
-        super(Latios, self).__init__();
-        self.x = 900
-        self.y = 200
+        super(Dragon, self).__init__();
+        self.x = 0
+        self.y = 100
         self.screen = screen;
-        self.image = pygame.image.load("./images/latios.png")
+        self.image_original = pygame.image.load("./images/green_dragon.png")
+        self.image = pygame.transform.scale(self.image_original,[150,150])
         self.flapping_index = 0
         # self.flapping_images = ['images/dragon2.png','images/dragon3.png']
     def fly(self):
-        self.x -= 10;
+        self.x += 10;
     def draw_me(self):
         self.screen.blit(self.image, [self.x, self.y])
